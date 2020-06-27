@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Cheese! </title>
+</head>
+<body>
+<script>
+//If we wish to use a different subset of wikipedia—say, wiktionary—this URL is all we'll have to change.
+var url = "https://en.wikipedia.org/w/api.php";
+
+//These govern what actions this GET request takes. We will always want a query,
+//and since we're simply checking whether or not a page exists, I doubt we'll need to change the format.
+//apfrom is the phrase we'll be looking up, however.
+var params = {
+    action: "query",
+    format: "json",
+    list: "allpages",
+    apfrom: "couch potato"
+};
+
+//This simply constructs the URL for the HTTP GET request.
+url = url + "?origin=*";
+Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+console.log(params["apfrom"]);
+
+//This runs the GET request. If a page exactly matches the two-word phrase (allowing for capitalization differences)
+//then the play is valid.
+fetch(url)
+    .then(function(response){return response.json();})
+    .then(function(response) {
+        var pages = response.query.allpages;
+        for (var p in pages) {
+            if (String(pages[p].title).toLowerCase() == params["apfrom"].toLowerCase())
+            {
+              playIsValid();
+            }
+        }
+    })
+    .catch(function(error){console.log(error);});
+
+//This function is just a placeholder for now.
+function playIsValid()
+{
+  console.log("This was a valid play!");
+}
+</script>
+</body>
+
+</html>
