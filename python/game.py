@@ -1,64 +1,29 @@
-# Handles all backend computations for the game, including time limits, countering, 
-# managing turns, storing a record of all plays in order, and determining 
-# whether a player has won yet.
+# The game object used for games of Word Dual.
 
-import requests # this will be needed to handle HTTP GET requests
-
-Queue moves # this will store all the moves in order
-
-int player # keeps track of whose turn it is
-
-int timeUntilTurnSwitch # keeps track of how much time is left
-                        # until the current turn ends
-
-int turnLength # how long each turn is
-
-bool[] survivingPlayers # keeps track of which players are still alive
-
-def startTurnTimer(allPlayers, turnLength):
+class Game:
     '''
-    When called, makes it allPlayers[0]’s turn and starts and
-    manages a turn timer.
-
-    allPlayers: a string list of all players
-    turnLength: an int representing the turn length in seconds
-
-    returns: None
+    An object used to track the players, current turn, and turn length
+    within a game of Word Dual.
     '''
 
-def endTurn():
-    '''
-    Ends the current player’s turn, incrementing player by 1 mod
-    len(allPlayers), resetting counters, and resetting 
-    timeUntilTurnSwitch to turnLength
+    def __init__(self, players, turn_length):
+        self.players = players # a string list of players in a game
+        self.current_player = -1 # int for current player's turn. -1 means none
+        self.turn_length = turn_length # int length in seconds of each turn
 
-    returns: None
-    '''
+    def elimPlayer(player): 
+        '''
+        Runs any graphical functions that will be called upon a
+        player being out, and removes player from self.players[].
 
-def makePlay(play):
-    '''
-    Checks whether this play has been countered; if it has been,
-    calls elimPlayer(player). Otherwise, it appends play to
-    moves and calls endTurn().
+        player: an integer representing the player
 
-    play: a string containing the phrase the player played
+        returns: True on success, False on failure
+        '''
 
-    return: True if play is not counter, False if the play was 
-    countered and fails
-    '''
+    def incrementTurn():
+        '''
+        Increases the value of current_player by one
 
-def elimPlayer(player): 
-    '''
-    Runs any graphical functions that will be called upon a
-    player being out, and sets survivingPlayers[player] to
-    false.
-
-    player: an integer representing the player
-
-    returns: True on success, False on failure
-    '''
-
-def counter(counter):
-    '''
-    Appends counter to 
-    '''
+        returns: Always true
+        '''
