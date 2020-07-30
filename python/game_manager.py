@@ -2,6 +2,8 @@
 # managing turns, storing a record of all plays in order, and determining 
 # whether a player has won yet.
 
+from game import Game
+
 import requests # this will be needed to handle HTTP GET requests
 
 Queue moves # this will store all the moves in order
@@ -20,21 +22,24 @@ def startTurnTimer(game):
     returns: None
     '''
 
-def endTurn():
+def endTurn(game):
     '''
     Ends the current player’s turn, incrementing player by 1 mod
     len(allPlayers), resetting counters, and resetting 
     timeUntilTurnSwitch to turnLength
 
+    game: The game object for the current game
+
     returns: None
     '''
 
-def makePlay(play):
+def makePlay(game, play):
     '''
     Checks whether this play has been countered; if it has been,
     calls elimPlayer(player). Otherwise, it appends play to
     moves and calls endTurn().
 
+    game: The current game as a game object
     play: a string containing the phrase the player played
 
     return: True if play is not counter, False if the play was 
